@@ -85,7 +85,6 @@
       left: 0;
     }
 
-    /* Logo circular */
     .menu-logo {
       width: 100px;
       height: 100px;
@@ -133,7 +132,6 @@
       box-shadow: 0 8px 20px rgba(37, 211, 102, 0.5);
     }
 
-    /* Cerrar menú */
     .close-menu {
       position: absolute;
       top: 20px;
@@ -229,13 +227,13 @@
       transform: scale(1.06);
     }
 
-    /* Pantalla de aceptación (fondo blanco rosado sutil) */
+    /* Pantalla de aceptación */
     .accepted-screen {
       display: none;
       text-align: center;
       padding: 2.4rem;
       max-width: 440px;
-      background: #fffaf0; /* Blanco con leve tono rosado */
+      background: #fffaf0;
       border-radius: 20px;
       box-shadow: 0 12px 35px rgba(255, 105, 180, 0.2);
       border: 3px solid transparent;
@@ -248,7 +246,7 @@
       content: '';
       position: absolute;
       inset: -3px;
-      background: linear-gradient(45deg, #ffb6c1, #ff80ab, #ffb6c1); /* Neón rosado muy suave */
+      background: linear-gradient(45deg, #ffb6c1, #ff80ab, #ffb6c1);
       border-radius: 23px;
       z-index: -1;
       animation: borderPulse 3s ease-in-out infinite;
@@ -273,7 +271,7 @@
     }
 
     .accepted-screen p {
-      color: #c41e6a; /* Rosa profundo, muy legible */
+      color: #c41e6a;
       font-size: 1.15rem;
       margin-bottom: 1.5rem;
       line-height: 1.6;
@@ -313,7 +311,7 @@
       50% { background-position: 100% 50%; }
     }
 
-    /* Corazones flotando (lluvia desde arriba) */
+    /* Corazones flotando */
     .heart-fall {
       position: absolute;
       color: #e91e63;
@@ -330,6 +328,89 @@
         transform: translateY(100vh) rotate(360deg);
         opacity: 0;
       }
+    }
+
+    /* CUADROS DE INSISTENCIA (NEÓN) */
+    .insist-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      max-width: 360px;
+      background: #fffaf0;
+      border-radius: 20px;
+      padding: 1.8rem 1.6rem;
+      text-align: center;
+      z-index: 1000;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+      border: 3px solid transparent;
+      background-clip: padding-box;
+      animation: popIn 0.6s ease-out forwards, glowPulse 2s infinite alternate;
+      opacity: 0;
+    }
+
+    .insist-box::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: linear-gradient(45deg, #ff80ab, #ba68c8, #ffcc80, #e91e63);
+      border-radius: 23px;
+      z-index: -1;
+      filter: blur(8px);
+      opacity: 0.7;
+      animation: borderShine 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes borderShine {
+      0% { opacity: 0.5; }
+      100% { opacity: 0.9; }
+    }
+
+    .insist-box h3 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: #e91e63;
+      margin-bottom: 1rem;
+    }
+
+    .insist-box p {
+      color: #c41e6a;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .insist-box button {
+      margin-top: 1.3rem;
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(45deg, #e91e63, #ba68c8);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(233, 30, 99, 0.3);
+      transition: all 0.3s;
+    }
+
+    .insist-box button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 20px rgba(233, 30, 99, 0.5);
+    }
+
+    .close-insist {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 1.4rem;
+      color: #e91e63;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 0.3s;
+    }
+
+    .close-insist:hover {
+      opacity: 1;
+      transform: rotate(90deg);
     }
 
     .dev-text {
@@ -362,12 +443,21 @@
       .proposal-container h2 {
         font-size: 2.1rem;
       }
+
+      .insist-box {
+        max-width: 320px;
+        padding: 1.6rem 1.4rem;
+      }
+
+      .insist-box h3 {
+        font-size: 1.6rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Botón del menú (3 rayitas) -->
+  <!-- Botón del menú -->
   <div class="menu-btn" onclick="toggleMenu()">
     <span></span>
     <span></span>
@@ -404,7 +494,7 @@
   <!-- Pantalla de aceptación -->
   <div id="acceptedScreen" class="accepted-screen">
     <h1>¡Sabía que dirías que sí! 💕</h1>
-    <p>Sabía que me ibas  aceptar a que fueras mi novia… <br>Eres la persona más hermosa del mundo. <br>Te amo muchísimo y cada día será un regalo contigo. 💖</p>
+    <p>Sabía que me ibas a aceptar… <br>Eres la persona más hermosa del mundo. <br>Te amo muchísimo y cada día será un regalo contigo. 💖</p>
 
     <div class="gif-frame">
       <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyMHR3Ym5zNjF2emowZnZ5cWltZmJ6ZGRuaDM2ZXU5eDR1bWl6aHd1ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OJZZsbgcYvSSz5yA7K/giphy.gif" alt="Explosión de corazones" width="220" height="220" />
@@ -440,7 +530,6 @@
     }
 
     function onPlayerReady(event) {
-      // Reproducir al hacer clic
       document.body.addEventListener('click', function() {
         if (player && player.playVideo) {
           player.playVideo();
@@ -467,29 +556,53 @@
       createHearts();
     }
 
-    // Botón "No" con insistencia
-    function negar() {
-      const mensajes = [
-        "¿Estás segura? ❤️",
-        "Piénsalo otra vez… 🥺",
-        "Mi corazón solo late por ti… 😢",
-        "¿No hay forma de que digas sí? 💔",
-        "¡Por favor! Dime que sí… 🤍"
-      ];
-      
-      if (!window.intentos) window.intentos = 0;
+    // Mensajes de insistencia en cuadritos bonitos
+    const mensajesInsistencia = [
+      "¿Estás segura? Mi corazón solo late por ti... ❤️",
+      "Piénsalo otra vez... Eres mi sueño hecho realidad 🥺",
+      "Sin ti, cada día es gris... ¿No hay forma de que digas sí? 💔",
+      "Te miro y veo mi futuro... Por favor, dame una oportunidad 🤍",
+      "Mi amor, no quiero a nadie más... Solo a ti, para siempre 💖"
+    ];
 
-      if (window.intentos < mensajes.length) {
-        alert(mensajes[window.intentos]);
-        window.intentos++;
+    let intentos = 0;
+
+    function negar() {
+      if (intentos < mensajesInsistencia.length) {
+        mostrarCuadritoInsistencia(mensajesInsistencia[intentos]);
+        intentos++;
       } else {
         alert("Ya no pregunto más… pero mi corazón siempre será tuyo 💔");
       }
     }
 
-    // Corazones cayendo (lluvia)
+    function mostrarCuadritoInsistencia(mensaje) {
+      // Evitar múltiples cuadros
+      if (document.querySelector('.insist-box')) return;
+
+      const box = document.createElement('div');
+      box.className = 'insist-box';
+
+      box.innerHTML = `
+        <div class="close-insist" onclick="this.parentElement.remove()">✕</div>
+        <h3>Por favor...</h3>
+        <p>${mensaje}</p>
+        <button onclick="aceptar(); this.parentElement.remove();">Entonces sí, acepto 💕</button>
+      `;
+
+      document.body.appendChild(box);
+
+      // Eliminar después de 6 segundos si no se cierra
+      setTimeout(() => {
+        if (box.parentElement) {
+          box.remove();
+        }
+      }, 6000);
+    }
+
+    // Corazones cayendo
     function createHearts() {
-      const hearts = ['❤️', '💖', '💕', '💓', '💗', '💞', '💘', '🦋']; // mariposita incluida 💖
+      const hearts = ['❤️', '💖', '💕', '💓', '💗', '💞', '💘', '🦋'];
       setInterval(() => {
         const heart = document.createElement('div');
         heart.className = 'heart-fall';
