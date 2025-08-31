@@ -220,8 +220,6 @@
       background: #fff;
       color: #e91e63;
       border: 2px solid #e91e63;
-      position: absolute;
-      transition: all 0.3s;
     }
 
     .btn-no:hover {
@@ -244,7 +242,7 @@
       box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
       border: 3px solid transparent;
       background-clip: padding-box;
-      animation: popIn 0.6s ease-out forwards, glowPulse 2s infinite alternate;
+      animation: popIn 0.6s ease-out forwards;
       opacity: 0;
     }
 
@@ -312,7 +310,7 @@
       transform: rotate(90deg);
     }
 
-    /* Pantalla de aceptación final */
+    /* Pantalla final de amor */
     .final-love-screen {
       display: none;
       text-align: center;
@@ -336,6 +334,16 @@
       filter: blur(10px);
       opacity: 0.7;
       animation: borderPulse 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes borderPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     .final-love-screen h1 {
@@ -409,7 +417,7 @@
     }
 
     @media (max-width: 480px) {
-      .proposal-container, .accepted-screen, .final-love-screen {
+      .proposal-container, .final-love-screen {
         padding: 2.2rem 1.6rem;
         margin: 1rem;
       }
@@ -422,15 +430,6 @@
       .btn {
         width: 85%;
         max-width: 210px;
-      }
-
-      .btn-no {
-        position: static;
-        margin-top: 1rem;
-      }
-
-      .gif-frame img {
-        width: 170px;
       }
 
       .proposal-container h2 {
@@ -480,7 +479,7 @@
 
     <div class="btn-group">
       <button class="btn btn-si" onclick="aceptar()">Sí, quiero 💖</button>
-      <button class="btn btn-no" id="btnNo">No quiero</button>
+      <button class="btn btn-no" id="btnNo" onclick="negar()">No quiero</button>
     </div>
   </div>
 
@@ -498,53 +497,21 @@
     </div>
   </div>
 
-  <!-- Reproductor de YouTube oculto -->
-  <div style="position: fixed; top: -9999px;">
-    <iframe 
-      id="musicPlayer" 
-      width="0" 
-      height="0" 
-      src="https://www.youtube.com/embed/oiGCL2Ld534?start=102&autoplay=1&loop=1&playlist=oiGCL2Ld534&controls=0&modestbranding=1&mute=0&playsinline=1" 
-      frameborder="0" 
-      allow="autoplay; loop; encrypted-media" 
-      allowfullscreen>
-    </iframe>
-  </div>
+  <!-- Reproductor de audio desde Google Drive -->
+  <audio id="audioPlayer" loop style="display: none;">
+    <source src="https://drive.google.com/uc?export=download&id=1090PcBCJcNHMnH3jfP48IulVZk3KHG87" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
 
   <!-- Firma -->
   <p class="dev-text">by AnthZz Berrocal BerMatMods</p>
 
   <script>
-    // Cargar YouTube API
-    let player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('musicPlayer', {
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
-
-    function onPlayerReady(event) {
-      document.body.addEventListener('click', function() {
-        if (player && player.playVideo) {
-          player.playVideo();
-        }
-      }, { once: true });
-    }
-
-    function onPlayerStateChange(event) {
-      if (event.data == YT.PlayerState.ENDED) {
-        player.playVideo();
-      }
-    }
-
-    window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    // Reproducir música al hacer clic en cualquier parte
+    document.body.addEventListener('click', function() {
+      const audio = document.getElementById('audioPlayer');
+      audio.play().catch(e => console.log("Autoplay bloqueado:", e));
+    }, { once: true });
 
     // Botón "Sí"
     function aceptar() {
@@ -554,8 +521,8 @@
       startFloatingHearts();
     }
 
-    // Botón "No" esquivo
-    const btnNo = document.getElementById('btnNo');
+    // Botón "No" + insistencia
+    let intentos = 0;
     const mensajesInsistencia = [
       "¿Estás segura? Mi corazón solo late por ti... ❤️",
       "Piénsalo otra vez... Eres mi sueño hecho realidad 🥺",
@@ -564,32 +531,19 @@
       "Mi amor, no quiero a nadie más... Solo a ti, para siempre 💖"
     ];
 
-    let intentos = 0;
-
-    btnNo.addEventListener('mouseenter', () => {
-      if (intentos < mensajesInsistencia.length) {
-        const x = Math.random() * (window.innerWidth - 150);
-        const y = Math.random() * (window.innerHeight - 150);
-        btnNo.style.position = 'absolute';
-        btnNo.style.left = x + 'px';
-        btnNo.style.top = y + 'px';
-      }
-    });
-
-    btnNo.onclick = function(e) {
-      e.stopPropagation();
+    function negar() {
       if (intentos < mensajesInsistencia.length) {
         mostrarCuadritoInsistencia(mensajesInsistencia[intentos]);
         intentos++;
       } else {
-        // Solo mueve el botón, sin redirección
-        const x = Math.random() * (window.innerWidth - 150);
-        const y = Math.random() * (window.innerHeight - 150);
-        btnNo.style.position = 'absolute';
-        btnNo.style.left = x + 'px';
-        btnNo.style.top = y + 'px';
+        // Solo mueve el botón después del 5to intento
+        const x = Math.random() * (window.innerWidth - 200);
+        const y = Math.random() * (window.innerHeight - 200);
+        document.getElementById('btnNo').style.position = 'absolute';
+        document.getElementById('btnNo').style.left = x + 'px';
+        document.getElementById('btnNo').style.top = y + 'px';
       }
-    };
+    }
 
     function mostrarCuadritoInsistencia(mensaje) {
       if (document.querySelector('.insist-box')) return;
