@@ -29,7 +29,7 @@
       position: relative;
     }
 
-    /* Botón del menú (3 rayitas) */
+    /* Botón del menú */
     .menu-btn {
       position: absolute;
       top: 20px;
@@ -141,7 +141,7 @@
       cursor: pointer;
     }
 
-    /* Pantalla de propuesta */
+    /* Contenedor de propuesta */
     .proposal-container {
       text-align: center;
       max-width: 440px;
@@ -220,114 +220,13 @@
       background: #fff;
       color: #e91e63;
       border: 2px solid #e91e63;
+      position: absolute;
+      transition: all 0.3s;
     }
 
     .btn-no:hover {
       background: #ffe6f0;
       transform: scale(1.06);
-    }
-
-    /* Pantalla de aceptación */
-    .accepted-screen {
-      display: none;
-      text-align: center;
-      padding: 2.4rem;
-      max-width: 440px;
-      background: #fffaf0;
-      border-radius: 20px;
-      box-shadow: 0 12px 35px rgba(255, 105, 180, 0.2);
-      border: 3px solid transparent;
-      position: relative;
-      z-index: 2;
-      animation: popIn 0.8s ease-out;
-    }
-
-    .accepted-screen::before {
-      content: '';
-      position: absolute;
-      inset: -3px;
-      background: linear-gradient(45deg, #ffb6c1, #ff80ab, #ffb6c1);
-      border-radius: 23px;
-      z-index: -1;
-      animation: borderPulse 3s ease-in-out infinite;
-      opacity: 0.6;
-    }
-
-    @keyframes borderPulse {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 0.8; }
-    }
-
-    @keyframes popIn {
-      0% { transform: scale(0.8); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    .accepted-screen h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
-      color: #e91e63;
-      margin-bottom: 1.1rem;
-    }
-
-    .accepted-screen p {
-      color: #c41e6a;
-      font-size: 1.15rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-      font-weight: 500;
-    }
-
-    /* Marco animado para GIF */
-    .gif-frame {
-      border-radius: 18px;
-      padding: 3px;
-      margin: 1.5rem 0;
-      background: linear-gradient(45deg, #ff80ab, #ba68c8, #ffcc80, #e91e63);
-      background-size: 300% 300%;
-      animation: rgbPulse 4s infinite alternate, backgroundShift 6s ease-in-out infinite;
-      position: relative;
-      display: inline-block;
-    }
-
-    .gif-frame img {
-      border-radius: 15px;
-      display: block;
-      width: 200px;
-      height: auto;
-      border: 4px solid #fff;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    @keyframes rgbPulse {
-      0% { box-shadow: 0 0 20px rgba(255, 105, 180, 0.3); }
-      33% { box-shadow: 0 0 20px rgba(140, 100, 255, 0.3); }
-      66% { box-shadow: 0 0 20px rgba(255, 190, 100, 0.3); }
-      100% { box-shadow: 0 0 20px rgba(255, 105, 180, 0.3); }
-    }
-
-    @keyframes backgroundShift {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-
-    /* Corazones flotando */
-    .heart-fall {
-      position: absolute;
-      color: #e91e63;
-      font-size: 20px;
-      top: -20px;
-      z-index: 1;
-      opacity: 0.8;
-      pointer-events: none;
-      animation: fall linear forwards;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
     }
 
     /* CUADROS DE INSISTENCIA (NEÓN) */
@@ -413,6 +312,95 @@
       transform: rotate(90deg);
     }
 
+    /* Pantalla de aceptación final */
+    .final-love-screen {
+      display: none;
+      text-align: center;
+      padding: 2.8rem 2rem;
+      max-width: 460px;
+      background: #fffaf0;
+      border-radius: 25px;
+      position: relative;
+      z-index: 3;
+      animation: popIn 0.8s ease-out;
+      box-shadow: 0 12px 40px rgba(255, 105, 180, 0.3);
+    }
+
+    .final-love-screen::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: linear-gradient(45deg, #ff80ab, #ba68c8, #ffcc80, #e91e63);
+      border-radius: 28px;
+      z-index: -1;
+      filter: blur(10px);
+      opacity: 0.7;
+      animation: borderPulse 2s ease-in-out infinite alternate;
+    }
+
+    .final-love-screen h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      color: #e91e63;
+      margin-bottom: 1.2rem;
+    }
+
+    .final-love-screen p {
+      font-size: 1.3rem;
+      color: #c41e6a;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .hearts-container {
+      position: relative;
+      height: 80px;
+      margin: 1.5rem 0;
+    }
+
+    .floating-heart {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0;
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100px) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Corazones flotando */
+    .heart-fall {
+      position: absolute;
+      color: #e91e63;
+      font-size: 20px;
+      top: -20px;
+      z-index: 1;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
     .dev-text {
       margin-top: 2.2rem;
       font-size: 0.85rem;
@@ -421,7 +409,7 @@
     }
 
     @media (max-width: 480px) {
-      .proposal-container, .accepted-screen {
+      .proposal-container, .accepted-screen, .final-love-screen {
         padding: 2.2rem 1.6rem;
         margin: 1rem;
       }
@@ -434,6 +422,11 @@
       .btn {
         width: 85%;
         max-width: 210px;
+      }
+
+      .btn-no {
+        position: static;
+        margin-top: 1rem;
       }
 
       .gif-frame img {
@@ -468,10 +461,10 @@
   <div id="menu" class="menu">
     <img src="https://i.postimg.cc/MThLTg2k/Screenshot-20250826-182522.jpg" alt="Logo de AnthZz Berrocal" class="menu-logo">
     <div class="close-menu" onclick="toggleMenu()">✕</div>
-    <h3>✨ ¿Quieres tener tu proyecto personalizado o dedicar a una persona en especial?</h3>
+    <h3>✨ ¿Quieres tener tu proyecto personalizado?</h3>
     <p>Yo te ayudo a crear o personalizar cualquier proyecto romántico, divertido o especial 💖</p>
-    <a href="https://wa.me/51937556459?text=Hola%20AnthZz%20Berrocal,%20vi%20uno%20de%20tus%20proyectos%20y%20me%20gustaría%20que%20me%20lo%20crees%20o%20personalices%20un%20proyecto." target="_blank" class="whatsapp-btn">
-      💬 Contactar por WhatsApp
+    <a href="#" class="whatsapp-btn" style="pointer-events: none; opacity: 0.6;">
+      Opción desactivada
     </a>
   </div>
 
@@ -487,14 +480,18 @@
 
     <div class="btn-group">
       <button class="btn btn-si" onclick="aceptar()">Sí, quiero 💖</button>
-      <button class="btn btn-no" onclick="negar()">No quiero</button>
+      <button class="btn btn-no" id="btnNo">No quiero</button>
     </div>
   </div>
 
-  <!-- Pantalla de aceptación -->
-  <div id="acceptedScreen" class="accepted-screen">
-    <h1>¡Sabía que dirías que sí! 💕</h1>
-    <p>Sabía que me ibas a aceptar… <br>Eres la persona más hermosa del mundo. <br>Te amo muchísimo y cada día será un regalo contigo. 💖</p>
+  <!-- Pantalla final de amor -->
+  <div id="finalLoveScreen" class="final-love-screen">
+    <h1>💖 Te amo muchísimo, mi amor 💖</h1>
+    <p>Eres mi todo, mi razón de sonreír cada día. <br>Gracias por decir que sí… <br>Te amo con todo mi corazón. 💕</p>
+
+    <div class="hearts-container">
+      <!-- Corazones flotantes generados por JS -->
+    </div>
 
     <div class="gif-frame">
       <img src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyMHR3Ym5zNjF2emowZnZ5cWltZmJ6ZGRuaDM2ZXU5eDR1bWl6aHd1ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OJZZsbgcYvSSz5yA7K/giphy.gif" alt="Explosión de corazones" width="220" height="220" />
@@ -552,11 +549,13 @@
     // Botón "Sí"
     function aceptar() {
       document.getElementById('proposalScreen').style.display = 'none';
-      document.getElementById('acceptedScreen').style.display = 'block';
+      document.getElementById('finalLoveScreen').style.display = 'block';
       createHearts();
+      startFloatingHearts();
     }
 
-    // Mensajes de insistencia en cuadritos bonitos
+    // Botón "No" esquivo
+    const btnNo = document.getElementById('btnNo');
     const mensajesInsistencia = [
       "¿Estás segura? Mi corazón solo late por ti... ❤️",
       "Piénsalo otra vez... Eres mi sueño hecho realidad 🥺",
@@ -567,36 +566,46 @@
 
     let intentos = 0;
 
-    function negar() {
+    btnNo.addEventListener('mouseenter', () => {
+      if (intentos < mensajesInsistencia.length) {
+        const x = Math.random() * (window.innerWidth - 150);
+        const y = Math.random() * (window.innerHeight - 150);
+        btnNo.style.position = 'absolute';
+        btnNo.style.left = x + 'px';
+        btnNo.style.top = y + 'px';
+      }
+    });
+
+    btnNo.onclick = function(e) {
+      e.stopPropagation();
       if (intentos < mensajesInsistencia.length) {
         mostrarCuadritoInsistencia(mensajesInsistencia[intentos]);
         intentos++;
       } else {
-        alert("Ya no pregunto más… pero mi corazón siempre será tuyo 💔");
+        // Solo mueve el botón, sin redirección
+        const x = Math.random() * (window.innerWidth - 150);
+        const y = Math.random() * (window.innerHeight - 150);
+        btnNo.style.position = 'absolute';
+        btnNo.style.left = x + 'px';
+        btnNo.style.top = y + 'px';
       }
-    }
+    };
 
     function mostrarCuadritoInsistencia(mensaje) {
-      // Evitar múltiples cuadros
       if (document.querySelector('.insist-box')) return;
 
       const box = document.createElement('div');
       box.className = 'insist-box';
-
       box.innerHTML = `
         <div class="close-insist" onclick="this.parentElement.remove()">✕</div>
         <h3>Por favor...</h3>
         <p>${mensaje}</p>
-        <button onclick="aceptar(); this.parentElement.remove();">Entonces sí, acepto 💕</button>
+        <button onclick="aceptar(); document.querySelectorAll('.insist-box').forEach(el => el.remove());">Sí, quiero ser tu novia 💕</button>
       `;
-
       document.body.appendChild(box);
 
-      // Eliminar después de 6 segundos si no se cierra
       setTimeout(() => {
-        if (box.parentElement) {
-          box.remove();
-        }
+        if (box.parentElement) box.remove();
       }, 6000);
     }
 
@@ -618,7 +627,25 @@
       }, 400);
     }
 
-    // Abrir/cerrar menú
+    // Corazones flotando en pantalla final
+    function startFloatingHearts() {
+      const container = document.querySelector('.hearts-container');
+      const hearts = ['💖', '💕', '💓', '💗', '💞', '💘', '❤️', '🤍'];
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 80 + 10 + '%';
+        heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        container.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 6000);
+      }, 800);
+    }
+
+    // Menú
     function toggleMenu() {
       document.getElementById('menu').classList.toggle('open');
     }
